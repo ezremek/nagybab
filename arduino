@@ -27,7 +27,8 @@ int x;
 int y;
 int z;
 void setup() {
-  DEBUG_SERIAL.begin(115200);
+  DEBUG_SERIAL.begin(57600
+  );
   dxl.begin(1000000);
   // Set Port Protocol Version. This has to match with DYNAMIXEL protocol version.
   dxl.setPortProtocolVersion(DXL_PROTOCOL_VERSION);
@@ -47,19 +48,17 @@ void loop() {
     //for(uint8_t i=0; BUFSIZE > i; ++i ) Serial.print( inbuf[i] );
 
     pitch = (inbuf[0] << 8) | inbuf[1];
-    x = map(pitch, 100, 400, 200, 800);
     dxl.setGoalPosition(0, x);
-    Serial.print( pitch );
+    //    Serial.print( pitch );
     yaw = (inbuf[2] << 8) | inbuf[3];
-    y = map(yaw, 100, 400, 200, 800);
     dxl.setGoalPosition(1, y);
-    Serial.print( yaw );
+    //   Serial.print( yaw );
     roll = (inbuf[4] << 8) | inbuf[5];
-    z = map(roll, 100, 400, 200, 800);
     dxl.setGoalPosition(2, z);
-    Serial.print( z );
+    // Serial.print( z );
   }
-  Serial.print('\n');
-
-
+  // Serial.print('\n');
+  x = map(pitch, 100, 400, 200, 800);
+  y = map(yaw, 100, 400, 200, 800);
+  z = map(roll, 100, 400, 200, 800);
 }
